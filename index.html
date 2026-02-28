@@ -1,139 +1,183 @@
-<!DOCTYPE html> 
-<html lang="es"> 
-<head> 
-<meta charset="UTF-8"> 
-<title>Chordy</title> 
-<style> 
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; background-color: #f4f4f4; } 
-.controls { margin-bottom: 25px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; } 
-select { padding: 8px 15px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; outline: none; } 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chordy - Chord Dictionary</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; background-color: #f4f4f4; }
+        .controls { margin-bottom: 25px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; }
+        select { padding: 8px 15px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; outline: none; cursor: pointer; }
 
-table { border: 1px solid #595959; border-collapse: collapse; background: white; margin-top: 10px; } 
-td, th { border: 1px solid #595959; padding: 10px 12px; text-align: center; } 
-th { background: #f0e6cc; color: #333; text-transform: uppercase; font-size: 0.9em; } 
+        .contenedor-tablas { display: flex; flex-direction: column; gap: 40px; }
+        
+        table { border: 1px solid #595959; border-collapse: collapse; background: white; width: 100%; max-width: 1100px; }
+        td, th { border: 1px solid #595959; padding: 10px 8px; text-align: center; }
+        th { background: #f0e6cc; color: #333; text-transform: uppercase; font-size: 0.85em; }
 
-.col-nombre { 
-    width: 280px; 
-    text-align: left !important; 
-    padding-left: 20px; 
-    font-weight: bold; 
-} 
+        .col-nombre { width: 280px; text-align: left !important; padding-left: 20px; font-weight: bold; }
+        .col-armonico { width: 70px; color: #444; font-size: 0.9em; }
+        .col-americano { width: 130px; font-weight: 500; }
+        
+        .even { background: #fbf8f0; }
+        .odd { background: #fefcf9; }
+        tr:hover { background: #f1f1f1; }
+        
+        .seccion-titulo { 
+            background: #e0d6bc !important; 
+            font-weight: bold; 
+            text-align: left !important; 
+            padding-left: 20px;
+        }
 
-.col-armonico { width: 90px; color: #666; font-style: italic; } 
-.col-americano { width: 120px; font-weight: 500; } 
-.even { background: #fbf8f0; } 
-.odd { background: #fefcf9; } 
-tr:hover { background: #f1f1f1; } 
-</style> 
-</head> 
-<body> 
+        sup { font-size: 0.7em; }
+        s { text-decoration: line-through; }
+    </style>
+</head>
+<body>
 
-<div class="controls"> 
-<label><strong>Selecciona la Tonalidad:</strong> </label> 
-<select id="nota-raiz" onchange="generarTabla()"> 
-<optgroup label="Naturales"> 
-<option value="C">Do (C)</option> 
-<option value="D">Re (D)</option> 
-<option value="E">Mi (E)</option> 
-<option value="F">Fa (F)</option> 
-<option value="G">Sol (G)</option> 
-<option value="A">La (A)</option> 
-<option value="B">Si (B)</option> 
-</optgroup> 
-<optgroup label="Sostenidos (#)"> 
-<option value="C#">Do# (C#)</option> 
-<option value="D#">Re# (D#)</option> 
-<option value="F#">Fa# (F#)</option> 
-<option value="G#">Sol# (G#)</option> 
-<option value="A#">La# (A#)</option> 
-</optgroup> 
-<optgroup label="Bemoles (b)"> 
-<option value="Db">Re♭ (Db)</option> 
-<option value="Eb">Mi♭ (Eb)</option> 
-<option value="Gb">Sol♭ (Gb)</option> 
-<option value="Ab">La♭ (Ab)</option> 
-<option value="Bb">Si♭ (Bb)</option> 
-</optgroup> 
-</select> 
-</div> 
+<div class="controls">
+    <label><strong>Selecciona la Tonalidad:</strong> </label>
+    <select id="nota-raiz" onchange="actualizarTodo()">
+        <optgroup label="Naturales">
+            <option value="C" selected>Do (C)</option>
+            <option value="D">Re (D)</option>
+            <option value="E">Mi (E)</option>
+            <option value="F">Fa (F)</option>
+            <option value="G">Sol (G)</option>
+            <option value="A">La (A)</option>
+            <option value="B">Si (B)</option>
+        </optgroup>
+        <optgroup label="Sostenidos (♯)">
+            <option value="C#">Do♯ (C♯)</option>
+            <option value="D#">Re♯ (C♯)</option>
+            <option value="F#">Fa♯ (F♯)</option>
+            <option value="G#">Sol♯ (G♯)</option>
+            <option value="A#">La♯ (A♯)</option>
+        </optgroup>
+        <optgroup label="Bemoles (♭)">
+            <option value="Db">Re♭ (D♭)</option>
+            <option value="Eb">Mi♭ (E♭)</option>
+            <option value="Gb">Sol♭ (G♭)</option>
+            <option value="Ab">La♭ (A♭)</option>
+            <option value="Bb">Si♭ (B♭)</option>
+        </optgroup>
+    </select>
+</div>
 
-<div id="contenedor-tabla"></div> 
+<div class="contenedor-tablas">
+    <div id="tabla-triadas"></div>
+    <div id="tabla-cuatriadas"></div>
+</div>
 
-<script> 
-const diccionarioMusical = { 
-"C": { m3: "Eb", M3: "E", d5: "Gb", p5: "G", a5: "G#" }, 
-"C#": { m3: "E", M3: "E#", d5: "G", p5: "G#", a5: "Gx" }, 
-"Db": { m3: "Fb", M3: "F", d5: "Abb",p5: "Ab", a5: "A" }, 
-"D": { m3: "F", M3: "F#", d5: "Ab", p5: "A", a5: "A#" }, 
-"D#": { m3: "F#", M3: "Fx", d5: "A", p5: "A#", a5: "Ax" }, 
-"Eb": { m3: "Gb", M3: "G", d5: "Bbb",p5: "Bb", a5: "B" }, 
-"E": { m3: "G", M3: "G#", d5: "Bb", p5: "B", a5: "B#" }, 
-"F": { m3: "Ab", M3: "A", d5: "Cb", p5: "C", a5: "C#" }, 
-"F#": { m3: "A", M3: "A#", d5: "C", p5: "C#", a5: "Cx" }, 
-"Gb": { m3: "Bbb",M3: "Bb", d5: "Dbb",p5: "Db", a5: "D" }, 
-"G": { m3: "Bb", M3: "B", d5: "Db", p5: "D", a5: "D#" }, 
-"G#": { m3: "B", M3: "B#", d5: "D", p5: "D#", a5: "Dx" }, 
-"Ab": { m3: "Cb", M3: "C", d5: "Ebb",p5: "Eb", a5: "E" }, 
-"A": { m3: "C", M3: "C#", d5: "Eb", p5: "E", a5: "E#" }, 
-"A#": { m3: "C#", M3: "Cx", d5: "E", p5: "E#", a5: "Ex" }, 
-"Bb": { m3: "Db", M3: "D", d5: "Fb", p5: "F", a5: "F#" }, 
-"B": { m3: "D", M3: "D#", d5: "F", p5: "F#", a5: "Fx" } 
-}; 
+<script>
+const diccionarioMusical = {
+    "C":  { m3: "E♭", M3: "E",  d5: "G♭", p5: "G",  a5: "G♯", d7: "B𝄫", m7: "B♭", M7: "B" },
+    "C#": { m3: "E",  M3: "E♯", d5: "G",  p5: "G♯", a5: "G𝄪", d7: "B♭",  m7: "B",  M7: "B♯" },
+    "Db": { m3: "F♭", M3: "F",  d5: "A𝄫", p5: "A♭", a5: "A",  d7: "C𝄫", m7: "C♭", M7: "C" },
+    "D":  { m3: "F",  M3: "F♯", d5: "A♭", p5: "A",  a5: "A♯", d7: "C♭",  m7: "C",  M7: "C♯" },
+    "D#": { m3: "F♯", M3: "F𝄪", d5: "A",  p5: "A♯", a5: "A𝄪", d7: "C",   m7: "C♯", M7: "C𝄪" },
+    "Eb": { m3: "G♭", M3: "G",  d5: "B𝄫", p5: "B♭", a5: "B",  d7: "D𝄫", m7: "D♭", M7: "D" },
+    "E":  { m3: "G",  M3: "G♯", d5: "B♭", p5: "B",  a5: "B♯", d7: "D♭",  m7: "D",  M7: "E♯" },
+    "F":  { m3: "A♭", M3: "A",  d5: "C♭", p5: "C",  a5: "C♯", d7: "E𝄫", m7: "E♭", M7: "E" },
+    "F#": { m3: "A",  M3: "A♯", d5: "C",  p5: "C♯", a5: "C𝄪", d7: "E♭",  m7: "E",  M7: "E♯" },
+    "Gb": { m3: "B𝄫", M3: "B♭", d5: "D𝄫", p5: "D♭", a5: "D",  d7: "F𝄫", m7: "F♭", M7: "F" },
+    "G":  { m3: "B♭", M3: "B",  d5: "D♭", p5: "D",  a5: "D♯", d7: "F♭",  m7: "F",  M7: "F♯" },
+    "G#": { m3: "B",  M3: "B♯", d5: "D",  p5: "D♯", a5: "D𝄪", d7: "F",   m7: "F♯", M7: "F𝄪" },
+    "Ab": { m3: "C♭", M3: "C",  d5: "E𝄫", p5: "E♭", a5: "E",  d7: "G𝄫", m7: "G♭", M7: "G" },
+    "A":  { m3: "C",  M3: "C♯", d5: "E♭", p5: "E",  a5: "E♯", d7: "G♭",  m7: "G",  M7: "G♯" },
+    "A#": { m3: "C♯", M3: "C𝄪", d5: "E",  p5: "E♯", a5: "E𝄪", d7: "G",   m7: "G♯", M7: "G𝄪" },
+    "Bb": { m3: "D♭", M3: "D",  d5: "F♭", p5: "F",  a5: "F♯", d7: "A𝄫", m7: "A♭", M7: "A" },
+    "B":  { m3: "D",  M3: "D♯", d5: "F",  p5: "F♯", a5: "F𝄪", d7: "A♭",  m7: "A",  M7: "A♯" }
+};
 
-function generarTabla() { 
-const raiz = document.getElementById("nota-raiz").value; 
-const datos = diccionarioMusical[raiz]; 
-const tipos = [ 
-{ nombre: "Perfecto mayor (3ºM, 5ºJ)", suf: "", t: datos.M3, q: datos.p5 }, 
-{ nombre: "Perfecto menor (3ºm, 5ºJ)", suf: "m", t: datos.m3, q: datos.p5 }, 
-{ nombre: "De 5ª disminuida (3ºm, 5ªdim)", suf: "dim", t: datos.m3, q: datos.d5 }, 
-{ nombre: "De 5ª aumentada (3ºM, 5ªA)", suf: "aug", t: datos.M3, q: datos.a5 } 
-]; 
+// Mapeo para mostrar la raíz con el símbolo correcto en el cifrado americano
+const simboloRaiz = {
+    "C#": "C♯", "D#": "D♯", "F#": "F♯", "G#": "G♯", "A#": "A♯",
+    "Db": "D♭", "Eb": "E♭", "Gb": "G♭", "Ab": "A♭", "Bb": "B♭",
+    "C": "C", "D": "D", "E": "E", "F": "F", "G": "G", "A": "A", "B": "B"
+};
 
-let html = ` 
-<table> 
-<colgroup> 
-<col class="col-nombre"> 
-<col class="col-armonico" span="3"> 
-<col class="col-americano" span="3"> 
-</colgroup> 
-<thead> 
-<tr> 
-<th class="col-nombre" style="background: #e0d6bc;">ACORDES TRÍADAS</th> 
-<th colspan="3">CIFRADO ARMÓNICO</th> 
-<th colspan="3">CIFRADO AMERICANO</th> 
-</tr> 
-<tr style="background: #f0e6cc;"> 
-<th class="col-nombre">Tipos de acordes</th> 
-<th>Fund.</th><th>1ªinv.</th><th>2ªinv.</th> 
-<th>Fund.</th><th>1ªinv.</th><th>2ªinv</th> 
-</tr> 
-</thead> 
-<tbody>`; 
+function actualizarTodo() {
+    const raiz = document.getElementById("nota-raiz").value;
+    const datos = diccionarioMusical[raiz];
+    const raizBella = simboloRaiz[raiz];
+    
+    renderTríadas(raizBella, datos);
+    renderCuatríadas(raizBella, datos);
+}
 
-tipos.forEach((tipo, i) => { 
-const clase = i % 2 === 0 ? 'odd' : 'even'; 
-const cifrado = raiz + tipo.suf; 
-let armonicoCells = i === 0 ? ` 
-<td rowspan="4">(5)<br>(3)</td> 
-<td rowspan="4">6<br>(3)</td> 
-<td rowspan="4">6<br>4</td>` : ''; 
+function renderTríadas(raiz, datos) {
+    const tipos = [
+        { nombre: "Perfecto mayor (3ºM, 5ºJ)", suf: "", t: datos.M3, q: datos.p5 },
+        { nombre: "Perfecto menor (3ºm, 5ºJ)", suf: "m", t: datos.m3, q: datos.p5 },
+        { nombre: "De 5ª disminuida (3ºm, 5ªdim)", suf: "dim", t: datos.m3, q: datos.d5 },
+        { nombre: "De 5ª aumentada (3ºM, 5ªA)", suf: "aug", t: datos.M3, q: datos.a5 }
+    ];
 
-html += ` 
-<tr class="${clase}"> 
-<td class="col-nombre">${tipo.nombre}</td> 
-${armonicoCells} 
-<td>${cifrado}</td> 
-<td>${cifrado}/${tipo.t}</td> 
-<td>${cifrado}/${tipo.q}</td> 
-</tr>`; 
-}); 
+    let html = `<table>
+        <thead>
+            <tr><th colspan="1" class="seccion-titulo">ACORDES TRÍADAS</th><th colspan="3">CIFRADO ARMÓNICO</th><th colspan="3">CIFRADO AMERICANO</th></tr>
+            <tr><th class="col-nombre">Tipos de acordes</th><th>Fund.</th><th>1ªinv.</th><th>2ªinv.</th><th>Fund.</th><th>1ªinv.</th><th>2ªinv</th></tr>
+        </thead>
+        <tbody>`;
 
-html += `</tbody></table>`; 
-document.getElementById("contenedor-tabla").innerHTML = html; 
-} 
+    tipos.forEach((tipo, i) => {
+        const clase = i % 2 === 0 ? 'odd' : 'even';
+        const cifrado = raiz + tipo.suf;
+        let armonicoCells = i === 0 ? `<td rowspan="4">(5)<br>(3)</td><td rowspan="4">6<br>(3)</td><td rowspan="4">6<br>4</td>` : '';
+        html += `<tr class="${clase}">
+            <td class="col-nombre">${tipo.nombre}</td>${armonicoCells}
+            <td>${cifrado}</td><td>${cifrado}/${tipo.t}</td><td>${cifrado}/${tipo.q}</td>
+        </tr>`;
+    });
+    html += `</tbody></table>`;
+    document.getElementById("tabla-triadas").innerHTML = html;
+}
 
-generarTabla(); 
-</script> 
-</body> 
+function renderCuatríadas(raiz, datos) {
+    const tipos = [
+        { nombre: "7ª de dominante (3ªM, 5ªJ, 7ªm)", suf: "7", arm: ["7<br>+", "6<br><s>5</s>", "+6", "+4"], t: datos.M3, q: datos.p5, s: datos.m7 },
+        { nombre: "3ªM, 5ªJ, 7ªM", suf: "maj7", arm: ["7", "6<br>5", "4<br>3", "(4)<br>2"], t: datos.M3, q: datos.p5, s: datos.M7 },
+        { nombre: "3ªM, 5ªA, 7ªM", suf: "maj7♯5", arm: ["7", "6<br>5", "4<br>3", "(4)<br>2"], t: datos.M3, q: datos.a5, s: datos.M7 },
+        { nombre: "3ªM, 5ªA, 7ªm", suf: "7♯5", arm: ["7", "6<br>5", "4<br>3", "(4)<br>2"], t: datos.M3, q: datos.a5, s: datos.m7 },
+        { nombre: "3ªm, 5ªJ, 7ªm", suf: "m7", arm: ["7", "6<br>5", "4<br>3", "(4)<br>2"], t: datos.m3, q: datos.p5, s: datos.m7 },
+        { nombre: "3ªm, 5ªd, 7ªm (Semidis.)", suf: "m7♭5", arm: ["7<br><s>5</s>", "6<br>5", "4<br>3", "(4)<br>2"], t: datos.m3, q: datos.d5, s: datos.m7 },
+        { nombre: "3ªm, 5ªd, 7ªd (Disminuida)", suf: "dim7", arm: ["<s>7</s>", "6<br>5", "4<br>3", "(4)<br>2"], t: datos.m3, q: datos.d5, s: datos.d7 }
+    ];
+
+    let html = `<table>
+        <thead>
+            <tr><th colspan="1" class="seccion-titulo">ACORDES CUATRÍADAS</th><th colspan="4">CIFRADO ARMÓNICO</th><th colspan="4">CIFRADO AMERICANO</th></tr>
+            <tr><th class="col-nombre">Tipos de acordes</th>
+                <th>Fund.</th><th>1ªinv.</th><th>2ªinv.</th><th>3ªinv.</th>
+                <th>Fund.</th><th>1ªinv.</th><th>2ªinv.</th><th>3ªinv.</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+    tipos.forEach((tipo, i) => {
+        const clase = i % 2 === 0 ? 'odd' : 'even';
+        const cifrado = raiz + tipo.suf;
+        
+        html += `<tr class="${clase}">
+            <td class="col-nombre">${tipo.nombre}</td>
+            <td class="col-armonico">${tipo.arm[0]}</td>
+            <td class="col-armonico">${tipo.arm[1]}</td>
+            <td class="col-armonico">${tipo.arm[2]}</td>
+            <td class="col-armonico">${tipo.arm[3]}</td>
+            <td class="col-americano">${cifrado}</td>
+            <td class="col-americano">${cifrado}/${tipo.t}</td>
+            <td class="col-americano">${cifrado}/${tipo.q}</td>
+            <td class="col-americano">${cifrado}/${tipo.s}</td>
+        </tr>`;
+    });
+
+    html += `</tbody></table>`;
+    document.getElementById("tabla-cuatriadas").innerHTML = html;
+}
+
+actualizarTodo();
+</script>
+
+</body>
 </html>
