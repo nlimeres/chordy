@@ -1,52 +1,139 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Chordy - Musical Chord analyzer</title>
-    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tonaljs/tonal/browser/tonal.min.js"></script>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f9; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        #app { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 800px; text-align: center; }
-        #boo { width: 600px; height: 200px; margin: 0 auto; }
-        .controls { margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; }
-        .info-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; text-align: left; border-top: 1px solid #eee; padding-top: 20px; }
-        .chord-name { font-size: 24px; font-weight: bold; color: #2c3e50; }
-        .explanation { font-size: 14px; color: #666; line-height: 1.5; }
-        .badge { background: #eef2ff; color: #4f46e5; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
-    </style>
-</head>
-<body>
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+<meta charset="UTF-8"> 
+<title>Chordy</title> 
+<style> 
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; background-color: #f4f4f4; } 
+.controls { margin-bottom: 25px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; } 
+select { padding: 8px 15px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; outline: none; } 
 
-<div id="app">
-    <h2>Interactive Chord analyzer</h2>
-    
-    <div class="controls">
-        <select id="clef-select">
-            <option value="treble">G Clef</option>
-            <option value="bass">F Clef</option>
-            <option value="alto">C clef</option>
-        </select>
-        <input type="text" id="chord-input" placeholder="Ej: Cmaj7 o Dm7b5">
-        <button onclick="buildFromText()">Build</button>
-    </div>
+table { border: 1px solid #595959; border-collapse: collapse; background: white; margin-top: 10px; } 
+td, th { border: 1px solid #595959; padding: 10px 12px; text-align: center; } 
+th { background: #f0e6cc; color: #333; text-transform: uppercase; font-size: 0.9em; } 
 
-    <div id="boo"></div>
+.col-nombre { 
+    width: 280px; 
+    text-align: left !important; 
+    padding-left: 20px; 
+    font-weight: bold; 
+} 
 
-    <div class="info-panel">
-        <div>
-            <div class="chord-name" id="name-display">Play your notes in your MIDI...</div>
-            <p><strong>American chord notation:</strong> <span id="american-display">-</span></p>
-            <p><strong>Harmonic chord notation:</strong> <span id="harmonic-display">-</span> (in C Maj)</p>
-        </div>
-        <div class="explanation" id="explanation-display">
-            Here you will see why the chord is named as such based on its intervals.
-        </div>
-    </div>
-</div>
+.col-armonico { width: 90px; color: #666; font-style: italic; } 
+.col-americano { width: 120px; font-weight: 500; } 
+.even { background: #fbf8f0; } 
+.odd { background: #fefcf9; } 
+tr:hover { background: #f1f1f1; } 
+</style> 
+</head> 
+<body> 
 
-<!--
-MIDI SCRIPT
--->
-</body>
+<div class="controls"> 
+<label><strong>Selecciona la Tonalidad:</strong> </label> 
+<select id="nota-raiz" onchange="generarTabla()"> 
+<optgroup label="Naturales"> 
+<option value="C">Do (C)</option> 
+<option value="D">Re (D)</option> 
+<option value="E">Mi (E)</option> 
+<option value="F">Fa (F)</option> 
+<option value="G">Sol (G)</option> 
+<option value="A">La (A)</option> 
+<option value="B">Si (B)</option> 
+</optgroup> 
+<optgroup label="Sostenidos (#)"> 
+<option value="C#">Do# (C#)</option> 
+<option value="D#">Re# (D#)</option> 
+<option value="F#">Fa# (F#)</option> 
+<option value="G#">Sol# (G#)</option> 
+<option value="A#">La# (A#)</option> 
+</optgroup> 
+<optgroup label="Bemoles (b)"> 
+<option value="Db">Re♭ (Db)</option> 
+<option value="Eb">Mi♭ (Eb)</option> 
+<option value="Gb">Sol♭ (Gb)</option> 
+<option value="Ab">La♭ (Ab)</option> 
+<option value="Bb">Si♭ (Bb)</option> 
+</optgroup> 
+</select> 
+</div> 
+
+<div id="contenedor-tabla"></div> 
+
+<script> 
+const diccionarioMusical = { 
+"C": { m3: "Eb", M3: "E", d5: "Gb", p5: "G", a5: "G#" }, 
+"C#": { m3: "E", M3: "E#", d5: "G", p5: "G#", a5: "Gx" }, 
+"Db": { m3: "Fb", M3: "F", d5: "Abb",p5: "Ab", a5: "A" }, 
+"D": { m3: "F", M3: "F#", d5: "Ab", p5: "A", a5: "A#" }, 
+"D#": { m3: "F#", M3: "Fx", d5: "A", p5: "A#", a5: "Ax" }, 
+"Eb": { m3: "Gb", M3: "G", d5: "Bbb",p5: "Bb", a5: "B" }, 
+"E": { m3: "G", M3: "G#", d5: "Bb", p5: "B", a5: "B#" }, 
+"F": { m3: "Ab", M3: "A", d5: "Cb", p5: "C", a5: "C#" }, 
+"F#": { m3: "A", M3: "A#", d5: "C", p5: "C#", a5: "Cx" }, 
+"Gb": { m3: "Bbb",M3: "Bb", d5: "Dbb",p5: "Db", a5: "D" }, 
+"G": { m3: "Bb", M3: "B", d5: "Db", p5: "D", a5: "D#" }, 
+"G#": { m3: "B", M3: "B#", d5: "D", p5: "D#", a5: "Dx" }, 
+"Ab": { m3: "Cb", M3: "C", d5: "Ebb",p5: "Eb", a5: "E" }, 
+"A": { m3: "C", M3: "C#", d5: "Eb", p5: "E", a5: "E#" }, 
+"A#": { m3: "C#", M3: "Cx", d5: "E", p5: "E#", a5: "Ex" }, 
+"Bb": { m3: "Db", M3: "D", d5: "Fb", p5: "F", a5: "F#" }, 
+"B": { m3: "D", M3: "D#", d5: "F", p5: "F#", a5: "Fx" } 
+}; 
+
+function generarTabla() { 
+const raiz = document.getElementById("nota-raiz").value; 
+const datos = diccionarioMusical[raiz]; 
+const tipos = [ 
+{ nombre: "Perfecto mayor (3ºM, 5ºJ)", suf: "", t: datos.M3, q: datos.p5 }, 
+{ nombre: "Perfecto menor (3ºm, 5ºJ)", suf: "m", t: datos.m3, q: datos.p5 }, 
+{ nombre: "De 5ª disminuida (3ºm, 5ªdim)", suf: "dim", t: datos.m3, q: datos.d5 }, 
+{ nombre: "De 5ª aumentada (3ºM, 5ªA)", suf: "aug", t: datos.M3, q: datos.a5 } 
+]; 
+
+let html = ` 
+<table> 
+<colgroup> 
+<col class="col-nombre"> 
+<col class="col-armonico" span="3"> 
+<col class="col-americano" span="3"> 
+</colgroup> 
+<thead> 
+<tr> 
+<th class="col-nombre" style="background: #e0d6bc;">ACORDES TRÍADAS</th> 
+<th colspan="3">CIFRADO ARMÓNICO</th> 
+<th colspan="3">CIFRADO AMERICANO</th> 
+</tr> 
+<tr style="background: #f0e6cc;"> 
+<th class="col-nombre">Tipos de acordes</th> 
+<th>Fund.</th><th>1ªinv.</th><th>2ªinv.</th> 
+<th>Fund.</th><th>1ªinv.</th><th>2ªinv</th> 
+</tr> 
+</thead> 
+<tbody>`; 
+
+tipos.forEach((tipo, i) => { 
+const clase = i % 2 === 0 ? 'odd' : 'even'; 
+const cifrado = raiz + tipo.suf; 
+let armonicoCells = i === 0 ? ` 
+<td rowspan="4">(5)<br>(3)</td> 
+<td rowspan="4">6<br>(3)</td> 
+<td rowspan="4">6<br>4</td>` : ''; 
+
+html += ` 
+<tr class="${clase}"> 
+<td class="col-nombre">${tipo.nombre}</td> 
+${armonicoCells} 
+<td>${cifrado}</td> 
+<td>${cifrado}/${tipo.t}</td> 
+<td>${cifrado}/${tipo.q}</td> 
+</tr>`; 
+}); 
+
+html += `</tbody></table>`; 
+document.getElementById("contenedor-tabla").innerHTML = html; 
+} 
+
+generarTabla(); 
+</script> 
+</body> 
 </html>
