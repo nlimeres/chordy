@@ -1,0 +1,83 @@
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    padding: 30px; 
+    background-color: #f4f4f4; 
+}
+
+.controls { 
+    margin-bottom: 25px; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    display: inline-block; 
+}
+
+select { 
+    padding: 8px 15px; 
+    font-size: 16px; 
+    border-radius: 4px; 
+    border: 1px solid #ccc; 
+    outline: none; 
+    cursor: pointer; 
+}
+
+.contenedor-tablas { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 40px; 
+}
+
+table { 
+    border: 1px solid #595959; 
+    border-collapse: collapse; 
+    background: white; 
+    width: 100%; 
+    max-width: 1100px; 
+}
+
+td, th { 
+    border: 1px solid #595959; 
+    padding: 10px 8px; 
+    text-align: center; 
+}
+
+th { 
+    background: #f0e6cc; 
+    color: #333; 
+    text-transform: uppercase; 
+    font-size: 0.85em; 
+}
+
+.col-nombre { 
+    width: 280px; 
+    text-align: left !important; 
+    padding-left: 20px; 
+    font-weight: bold; 
+}
+
+.col-armonico { 
+    width: 70px; 
+    color: #444; 
+    font-size: 0.9em; 
+}
+
+.col-americano { 
+    width: 130px; 
+    font-weight: 500; 
+}
+
+.even { background: #fbf8f0; }
+.odd { background: #fefcf9; }
+
+tr:hover { background: #f1f1f1; }
+
+.seccion-titulo { 
+    background: #e0d6bc !important; 
+    font-weight: bold; 
+    text-align: left !important; 
+    padding-left: 20px;
+}
+
+sup { font-size: 0.7em; }
+s { text-decoration: line-through; }
