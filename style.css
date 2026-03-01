@@ -1,4 +1,48 @@
-/* --- TU ESTÉTICA ORIGINAL --- */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  color: rgb(0, 0, 0);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-text {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  color: #000000;
+  font-size: 30px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-links a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
 body { 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     padding: 30px; 
