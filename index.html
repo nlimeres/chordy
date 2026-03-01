@@ -5,42 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chordy - Chord Dictionary</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
 </head>
 <body>
-
-<div class="controls">
-    <label><strong>Selecciona la Tonalidad:</strong> </label>
-    <select id="nota-raiz" onchange="actualizarTodo()">
-        <optgroup label="Naturales">
-            <option value="C" selected>Do (C)</option>
-            <option value="D">Re (D)</option>
-            <option value="E">Mi (E)</option>
-            <option value="F">Fa (F)</option>
-            <option value="G">Sol (G)</option>
-            <option value="A">La (A)</option>
-            <option value="B">Si (B)</option>
-        </optgroup>
-        <optgroup label="Sostenidos (♯)">
-            <option value="C#">Do♯ (C♯)</option>
-            <option value="D#">Re♯ (C♯)</option>
-            <option value="F#">Fa♯ (F♯)</option>
-            <option value="G#">Sol♯ (G♯)</option>
-            <option value="A#">La♯ (A♯)</option>
-        </optgroup>
-        <optgroup label="Bemoles (♭)">
-            <option value="Db">Re♭ (D♭)</option>
-            <option value="Eb">Mi♭ (E♭)</option>
-            <option value="Gb">Sol♭ (G♭)</option>
-            <option value="Ab">La♭ (A♭)</option>
-            <option value="Bb">Si♭ (B♭)</option>
-        </optgroup>
-    </select>
+<div class="main-layout">
+    <div class="columna-izquierda">
+        <div class="controls">
+            <label><strong>Selecciona la Tonalidad:</strong> </label>
+            <select id="nota-raiz" onchange="actualizarTodo()">
+                <optgroup label="Naturales">
+                    <option value="C" selected>Do (C)</option>
+                    <option value="D">Re (D)</option>
+                    <option value="E">Mi (E)</option>
+                    <option value="F">Fa (F)</option>
+                    <option value="G">Sol (G)</option>
+                    <option value="A">La (A)</option>
+                    <option value="B">Si (B)</option>
+                </optgroup>
+                <optgroup label="Sostenidos (♯)">
+                    <option value="C#">Do♯ (C♯)</option>
+                    <option value="D#">Re♯ (D♯)</option>
+                    <option value="F#">Fa♯ (F♯)</option>
+                    <option value="G#">Sol♯ (G♯)</option>
+                    <option value="A#">La♯ (A♯)</option>
+                </optgroup>
+                <optgroup label="Bemoles (♭)">
+                    <option value="Db">Re♭ (D♭)</option>
+                    <option value="Eb">Mi♭ (E♭)</option>
+                    <option value="Gb">Sol♭ (G♭)</option>
+                    <option value="Ab">La♭ (A♭)</option>
+                    <option value="Bb">Si♭ (B♭)</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="contenedor-tablas">
+            <div id="tabla-triadas"></div>
+            <div id="tabla-cuatriadas"></div>
+        </div>
+    </div>
+    <div class="columna-derecha">
+        <div class="sticky-panel">
+            <h2 id="chord-title">Selecciona un acorde</h2>
+            <div id="staff-container"></div>
+            <p id="hint">Haz clic en las celdas del Cifrado Americano</p>
+        </div>
+    </div>
 </div>
-
-<div class="contenedor-tablas">
-    <div id="tabla-triadas"></div>
-    <div id="tabla-cuatriadas"></div>
-</div>
+<script src="script.js"></script>
 </body>
 </html>
