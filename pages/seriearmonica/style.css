@@ -1,0 +1,24 @@
+/* Page-local styles for Series Armónicas */
+@import url("../../style.css"); /* reuse global styles for nav and basic typography */
+
+.series-armonicas {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px 30px;
+  margin-top: 12px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e0d6bc;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+.series-armonicas .series-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#series-container { width: 100%; }
+#series-container svg { width: 100%; height: auto; display: block; }
+
+/* Small visual tweaks just for this page */
+main h1 { margin: 0 0 6px; }
+main p { margin: 0 0 18px; color: #555; }

@@ -110,7 +110,7 @@ th {
 .col-americano { 
     width: 130px; 
     font-weight: 500; 
-    cursor: pointer; /* Clickable */
+    cursor: pointer;
 }
 
 .col-americano:hover {
@@ -132,7 +132,7 @@ tr:hover { background: #f1f1f1; }
 sup { font-size: 0.7em; }
 s { text-decoration: line-through; }
 
-/* --- LAYOUT PARA EL PENTAGRAMA --- */
+
 .main-layout {
     display: flex;
     gap: 20px;
@@ -150,13 +150,13 @@ s { text-decoration: line-through; }
 .sticky-panel {
     position: sticky;
     top: 30px;
-    height: 500px; /* Altura del contenedor derecho */
+    height: 500px; 
     background: white;
     border-radius: 12px;
     border: 1px solid #e0d6bc;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     
-    /* CENTRADO VERTICAL DEL PENTAGRAMA */
+   
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -166,6 +166,31 @@ s { text-decoration: line-through; }
 
 #staff-container {
     width: 100%;
+}
+
+/* Series Armónicas: */
+.series-armonicas {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    margin-top: 24px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e0d6bc;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+.series-armonicas .series-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+#series-container {
+    width: 100%;
+}
+
+#series-container svg {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 #chord-title {
@@ -182,11 +207,11 @@ s { text-decoration: line-through; }
 }
 
 .clickable-title {
-    cursor: help; /* Muestra un signo de interrogación */
+    cursor: help; 
     transition: color 0.2s;
 }
 
 .clickable-title:hover {
-    color: #007bff; /* Cambia a azul al pasar el ratón */
+    color: #007bff; 
     text-decoration: underline;
 }
