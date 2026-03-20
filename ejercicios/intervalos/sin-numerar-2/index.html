@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chordy - Ejercicios de Intervalos</title>
+    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f9; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        h1 { color: #333; margin-bottom: 20px; }
+        
+        #exercise-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; 
+            width: 100%; 
+            max-width: 1000px; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .interval-box { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 3px solid #eee;
+            transition: all 0.3s ease; 
+        }
+
+        .canvas-wrapper { width: 150px; height: 120px; }
+        
+        .select-group { display: flex; gap: 5px; width: 100%; margin-top: 10px; }
+        
+        select { 
+            padding: 8px; 
+            flex: 1;
+            border: 2px solid #ccc; 
+            border-radius: 6px; 
+            font-size: 13px;
+            background: white;
+            transition: border-color 0.2s;
+        }
+
+        .select-success { border-color: #2ecc71 !important; background-color: #e8f8f0 !important; }
+        .select-error { border-color: #e74c3c !important; background-color: #fdedec !important; }
+
+        .box-success { border-color: #2ecc71 !important; background-color: #fafffa; }
+        .box-error { border-color: #e74c3c !important; background-color: #fffafa; }
+
+        #check-btn { 
+            margin-top: 40px; padding: 15px 40px; font-size: 1.1em; cursor: pointer;
+            background-color: #3498db; color: white; border: none; border-radius: 50px; 
+            font-weight: bold; transition: all 0.2s; box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        #check-btn:hover { background-color: #2980b9; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+    <h1>Identifica Grado y Especie</h1>
+    <div id="exercise-container"></div>
+    
+    <button id="check-btn">Comprobar Respuestas</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

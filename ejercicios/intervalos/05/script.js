@@ -1,29 +1,22 @@
 const VF = Vex.Flow;
 
 const exercises = [
-    { notes: ['c/4', 'a/4'], num: '6', qual: 'M' },
-    { notes: ['g/4', 'a/4'], num: '2', qual: 'M' },
-    { notes: ['c/5', 'd/4'], num: '7', qual: 'm' },
-    { notes: ['e/4', 'g/4'], num: '3', qual: 'm' },
-    { notes: ['c/4', 'e/4'], num: '3', qual: 'M' },
-    { notes: ['a/4', 'd/4'], num: '6', qual: 'M' },
-    { notes: ['d/4', 'c/4'], num: '2', qual: 'M' },
-    { notes: ['e/4', 'f/4'], num: '2', qual: 'm' },
-    { notes: ['c/4', 'b/4'], num: '7', qual: 'M' },
-    { notes: ['a/4', 'f/5'], num: '6', qual: 'm' },
-    { notes: ['f/4', 'd/4'], num: '3', qual: 'm' },
-    { notes: ['a/4', 'c/5'], num: '3', qual: 'm' }, // cambio de pagina del libro
+    { notes: ['d#/4', 'c/5'], num: '2', qual: 'M' },
+    { notes: ['f/4', 'b/3'], num: '5', qual: 'M' },
+    { notes: ['f/4', 'a/4'], num: '3', qual: 'm' },
+    { notes: ['e/4', 'c/5'], num: '6', qual: 'm' },
+    { notes: ['d/4', 'd/5'], num: '8', qual: 'M' },
+    { notes: ['e/5', 'f/4'], num: '7', qual: 'M' },
+    { notes: ['f/4', 'b/4'], num: '4', qual: 'M' },
+
+    ///cambio de pagina del libro
+    { notes: ['b/4', 'f/4'], num: '4', qual: 'aum' },
+    { notes: ['e/4', 'd/4'], num: '2', qual: 'M' },
+    { notes: ['c/5', 'e/4'], num: '6', qual: 'm' },
+    { notes: ['b/4', 'a/4'], num: '2', qual: 'M' },
     { notes: ['f/4', 'e/4'], num: '2', qual: 'm' },
-    { notes: ['d/4', 'b/4'], num: '6', qual: 'M' },
-    { notes: ['e/4', 'd/5'], num: '7', qual: 'm' },
-    { notes: ['b/4', 'g/4'], num: '3', qual: 'M' },
-    { notes: ['a/4', 'c/4'], num: '6', qual: 'M' },
-    { notes: ['g/4', 'a/4'], num: '2', qual: 'M' },
-    { notes: ['f/4', 'e/5'], num: '7', qual: 'M' },
-    { notes: ['e/4', 'c/4'], num: '3', qual: 'M' },
-    { notes: ['b/4', 'c/4'], num: '7', qual: 'M' },
-    { notes: ['d/4', 'e/4'], num: '2', qual: 'M' },
-    { notes: ['f/4', 'a/4'], num: '3', qual: 'M' }
+    { notes: ['d/4', 'b/3'], num: '3', qual: 'm' },
+    { notes: ['g/4', 'c/4'], num: '5', qual: 'J' },
 ];
 
 const grid = document.getElementById('exercise-grid');
@@ -42,7 +35,7 @@ exercises.forEach((ex, i) => {
 
     const selNum = document.createElement('select');
     selNum.id = `num-${i}`;
-    ['Num', '2', '3', '6', '7'].forEach(v => {
+    ['Num', '2', '3', '4', '5', '6', '7', '8'].forEach(v => {
         const o = document.createElement('option');
         o.value = v === 'Num' ? '' : v;
         o.textContent = v === 'Num' ? v : v + 'ª';
@@ -56,7 +49,7 @@ exercises.forEach((ex, i) => {
 
     const selQual = document.createElement('select');
     selQual.id = `qual-${i}`;
-    [{v:'', t:'Especie'}, {v:'M', t:'Mayor'}, {v:'m', t:'Menor'}].forEach(q => {
+    [{v:'', t:'Especie'}, {v:'M', t:'Mayor'}, {v:'m', t:'Menor'}, {v:'aum', t:'Aumentada'}].forEach(q => {
         const o = document.createElement('option');
         o.value = q.v; 
         o.textContent = q.t;
