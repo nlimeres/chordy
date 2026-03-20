@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chordy - Index de Ejercicios</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --bg: #f4f7f6;
+            --white: #ffffff;
+            --text: #333;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg); 
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 { margin: 0; font-size: 2.2em; letter-spacing: 1px; }
+        header p { margin: 10px 0 0; opacity: 0.8; font-weight: 300; }
+
+        .container {
+            max-width: 1100px;
+            width: 90%;
+            margin: 50px 0;
+        }
+
+        .exercise-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .exercise-card { 
+            background: var(--white); 
+            border-radius: 15px; 
+            padding: 25px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content:空间-between;
+        }
+
+        .exercise-card:hover { 
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.15);
+        }
+
+        .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .exercise-card h3 { 
+            margin: 0 0 10px; 
+            color: var(--primary);
+            font-size: 1.4em;
+        }
+
+        .exercise-card p { 
+            margin: 0 0 20px; 
+            font-size: 0.95em; 
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .exercise-card:hover .btn-link {
+            background: var(--accent);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 30px;
+            font-size: 0.9em;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Teoría Musical Interactiva</h1>
+        <p>Selecciona una unidad para comenzar a practicar</p>
+    </header>
+
+    <div class="container">
+        <div class="exercise-grid">
+            
+            <a href="ejercicio_intervalos.html" class="exercise-card">
+                <div class="icon">🎼</div>
+                <h3>Intervalos: Grado y Especie</h3>
+                <p>Identifica intervalos melódicos en figuras redondas. Evalúa número (2ª, 3ª...) y especie (M, m, J...).</p>
+                <div class="btn-link">Empezar Ejercicio</div>
+            </a>
+
+            <a href="#" class="exercise-card">
+                <div class="icon">🎹</div>
+                <h3>Escalas Mayores</h3>
+                <p>Práctica de armaduras y construcción de escalas diatónicas mayores en diferentes claves.</p>
+                <div class="btn-link">Próximamente</div>
+            </a>
+
+            <a href="#" class="exercise-card">
+                <div class="icon">🎸</div>
+                <h3>Acordes Tríadas</h3>
+                <p>Identificación de acordes mayores, menores, aumentados y disminuidos en estado fundamental.</p>
+                <div class="btn-link">Próximamente</div>
+            </a>
+
+            <a href="#" class="exercise-card">
+                <div class="icon">⏱️</div>
+                <h3>Ritmo y Compás</h3>
+                <p>Ejercicios de división de compases y valores de notas en compases simples y compuestos.</p>
+                <div class="btn-link">Próximamente</div>
+            </a>
+
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Chordy - Sigue el desarrollo en <a href="https://github.com/nlimeres/chordy">GitHub</a>
+    </footer>
+
+</body>
+</html>
