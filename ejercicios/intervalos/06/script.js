@@ -1,11 +1,11 @@
 const VF = Vex.Flow;
 
 const exercises = [
-    { notes: ['d#/4', 'g/4'], num: '3', qual: 'm' }, 
-    { notes: ['eb/4', 'f/4'], num: '2', qual: 'M' },
-    { notes: ['a/4', 'db/4'], num: '2', qual: 'm' },
-    { notes: ['f#/4', 'bn/3'], num: '8', qual: 'J' },
-    { notes: ['b/4', 'd/4'], num: '4', qual: 'aum' },
+    { notes: ['d/4', 'g/4'], num: '4', qual: 'J' },
+    { notes: ['e/5', 'd/5'], num: '2', qual: 'M' },
+    { notes: ['e/4', 'f/4'], num: '2', qual: 'm' },
+    { notes: ['c/4', 'c/5'], num: '8', qual: 'J' },
+    { notes: ['f/4', 'b/5'], num: '4', qual: 'aum' },
     { notes: ['e/5', 'f/4'], num: '7', qual: 'M' },
     { notes: ['g/4', 'a/4'], num: '2', qual: 'M' },
     { notes: ['f/4', 'b/3'], num: '5', qual: 'dim' }
@@ -61,34 +61,21 @@ exercises.forEach((ex, i) => {
 
 function renderMusic(data, targetId) {
     const div = document.getElementById(targetId);
-    div.innerHTML = ''; 
     const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
     renderer.resize(150, 120);
     const context = renderer.getContext();
     const stave = new VF.Stave(10, 0, 130).addClef("treble").setContext(context).draw();
     
-    const notes = data.notes.map(key => {
-        const cleanKey = key.replace('n', ''); 
-
-        const note = new VF.StaveNote({ keys: [cleanKey], duration: "w" });
-    
-        if (key.includes('#')) {
-            note.addModifier(new VF.Accidental("#"), 0);
-        } else if (key.includes('b')) {
-            note.addModifier(new VF.Accidental("b"), 0);
-        } else if (key.includes('n')) {
-            note.addModifier(new VF.Accidental("n"), 0);
-        }
-        
-        return note;
-    });
+    const notes = [
+        new VF.StaveNote({ keys: [data.notes[0]], duration: "w" }),
+        new VF.StaveNote({ keys: [data.notes[1]], duration: "w" })
+    ];
     
     const voice = new VF.Voice({ num_beats: 8, beat_value: 4 });
     voice.addTickables(notes);
     new VF.Formatter().joinVoices([voice]).format([voice], 80);
     voice.draw(context, stave);
 }
-
 document.getElementById('btn-check').addEventListener('click', () => {
     exercises.forEach((ex, i) => {
         const sNum = document.getElementById(`num-${i}`);
