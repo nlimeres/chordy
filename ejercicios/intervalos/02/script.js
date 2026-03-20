@@ -6,7 +6,7 @@ const exercises = [
     { notes: ['c/5', 'd/4'], num: '7', qual: 'm' },
     { notes: ['e/4', 'g/4'], num: '3', qual: 'm' },
     { notes: ['c/4', 'e/4'], num: '3', qual: 'M' },
-    { notes: ['a/4', 'd/4'], num: '6', qual: 'M' },
+    { notes: ['a/4', 'd/4'], num: '5', qual: 'M' },
     { notes: ['d/4', 'c/4'], num: '2', qual: 'M' },
     { notes: ['e/4', 'f/4'], num: '2', qual: 'm' },
     { notes: ['c/4', 'b/4'], num: '7', qual: 'M' },
