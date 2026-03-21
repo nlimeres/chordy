@@ -9,7 +9,6 @@ const exercises = [
     { notes: ['e/5', 'f/4'], num: '7', qual: 'M' },
     { notes: ['f/4', 'b/4'], num: '4', qual: 'M' },
 
-    ///cambio de pagina del libro
     { notes: ['b/4', 'f/4'], num: '4', qual: 'aum' },
     { notes: ['e/4', 'd/4'], num: '2', qual: 'M' },
     { notes: ['c/5', 'e/4'], num: '6', qual: 'm' },

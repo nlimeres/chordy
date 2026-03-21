@@ -115,7 +115,71 @@
         <h1>Ejercicios de intervalos interactivos</h1>
         <p>Empieza desde lo básico hasta dominarlos</p>
     </header>
+<style>
+  .custom-select {
+    width: 250px;
+    position: relative;
+    font-family: sans-serif;
+  }
+.custom-select {
+    width: 250px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    font-family: sans-serif;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
 
+/* Script para alinear el selector con el borde superior de .container
+    y para evitar que se superponga con el header en pantallas pequeñas. */
+  .custom-select summary::after {
+    content: '▼';
+    font-size: 0.8em;
+  }
+  .custom-select[open] summary::after {
+    content: '▲';
+  }
+  .custom-select .options {
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    box-sizing: border-box;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .custom-select .options a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+  }
+
+  .custom-select .options a:hover {
+    background-color: #f0f0f0;
+  }
+</style>
+</head>
+<body>
+
+<details class="custom-select">
+  <summary>Cambia de ejercicio</summary>
+  <div class="options">
+    <a href="/ejercicios/intervalos/01/index.html" target="_blank">Ejercicio nº 1</a>
+    <a href="/ejercicios/intervalos/02/index.html" target="_blank">Ejercicio nº 2</a>
+    <a href="/ejercicios/intervalos/03/index.html" target="_blank">Ejercicio nº 3</a>
+    <a href="/ejercicios/intervalos/04/index.html" target="_blank">Ejercicio nº 4</a>
+    <a href="/ejercicios/intervalos/05/index.html" target="_blank">Ejercicio nº 5</a>
+  </div>
+</details>
     <div class="container">
         <div class="exercise-grid">
             

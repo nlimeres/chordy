@@ -1,5 +1,5 @@
-/* Page-local styles for Series Armónicas */
-@import url("../../style.css"); /* reuse global styles for nav and basic typography */
+
+@import url("../../style.css");
 
 .series-armonicas {
   width: 100%;
@@ -19,6 +19,5 @@
 #series-container { width: 100%; }
 #series-container svg { width: 100%; height: auto; display: block; }
 
-/* Small visual tweaks just for this page */
 main h1 { margin: 0 0 6px; }
 main p { margin: 0 0 18px; color: #555; }

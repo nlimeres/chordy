@@ -12,7 +12,7 @@ const exercises = [
     { notes: ['c/4', 'b/4'], num: '7', qual: 'M' },
     { notes: ['a/4', 'f/5'], num: '6', qual: 'm' },
     { notes: ['f/4', 'd/4'], num: '3', qual: 'm' },
-    { notes: ['a/4', 'c/5'], num: '3', qual: 'm' }, // cambio de pagina del libro
+    { notes: ['a/4', 'c/5'], num: '3', qual: 'm' },
     { notes: ['f/4', 'e/4'], num: '2', qual: 'm' },
     { notes: ['d/4', 'b/4'], num: '6', qual: 'M' },
     { notes: ['e/4', 'd/5'], num: '7', qual: 'm' },
